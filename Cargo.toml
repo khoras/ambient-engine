@@ -1,0 +1,8 @@
+[package]
+name = "ambient-engine"
+version = "0.1.0"
+authors = ["Alessio Coltellacci <lightplay8@gmail.com>",  "Didier Plaindoux <d.plaindoux@free.fr>"]
+edition = "2018"
+
+[dependencies]
+
