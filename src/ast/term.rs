@@ -1,3 +1,5 @@
+// Reference http://lucacardelli.name/Papers/MobileAmbients.A4.pdf page 20
+
 //
 // Capabilities
 //
@@ -24,12 +26,12 @@ struct Name<S> where S: Into<String> {
 }
 
 #[derive(Debug)]
-struct Enter<M: Capability> {
+struct In<M: Capability> {
     capability: M
 }
 
 #[derive(Debug)]
-struct Exit<M> where M: Capability {
+struct Out<M> where M: Capability {
     capability: M
 }
 
@@ -55,9 +57,9 @@ impl<S> Capability for Variable<S> where S: Into<String> {}
 
 impl<S> Capability for Name<S> where S: Into<String> {}
 
-impl<M> Capability for Enter<M> where M: Capability {}
+impl<M> Capability for In<M> where M: Capability {}
 
-impl<M> Capability for Exit<M> where M: Capability {}
+impl<M> Capability for Out<M> where M: Capability {}
 
 impl<M> Capability for Open<M> where M: Capability {}
 
