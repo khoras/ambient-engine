@@ -87,4 +87,68 @@ where
 
 impl Capability for Empty {}
 
-// EOF
+// Factories
+
+impl<S> Variable<S>
+where
+    S: Into<String>,
+{
+    fn new(value: S) -> Self {
+        Self { value }
+    }
+}
+
+impl<S> Name<S>
+where
+    S: Into<String>,
+{
+    fn new(value: S) -> Self {
+        Self { value }
+    }
+}
+
+impl<M> In<M>
+where
+    M: Capability,
+{
+    fn new(capability: M) -> Self {
+        Self { capability }
+    }
+}
+
+impl<M> Out<M>
+where
+    M: Capability,
+{
+    fn new(capability: M) -> Self {
+        Self { capability }
+    }
+}
+
+impl<M> Open<M>
+where
+    M: Capability,
+{
+    fn new(capability: M) -> Self {
+        Self { capability }
+    }
+}
+
+impl<N, M> Path<N, M>
+where
+    N: Capability,
+    M: Capability,
+{
+    fn new(capability_l: N, capability_r: M) -> Self {
+        Self {
+            capability_l,
+            capability_r,
+        }
+    }
+}
+
+impl Empty {
+    fn new() -> Self {
+        Self
+    }
+}

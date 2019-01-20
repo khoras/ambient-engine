@@ -132,4 +132,87 @@ where
 
 impl<M> Process for Output<M> where M: Capability {}
 
-// EOF
+// Factories
+
+impl<S, P> Restriction<S, P>
+where
+    S: Into<String>,
+    P: Process,
+{
+    fn new(name: S, process: P) -> Self {
+        Self { name, process }
+    }
+}
+
+impl Inactivity {
+    fn new() -> Self {
+        Inactivity
+    }
+}
+
+impl<P, Q> Composition<P, Q>
+where
+    P: Process,
+    Q: Process,
+{
+    fn new(process_l: P, process_r: Q) -> Self {
+        Self {
+            process_l,
+            process_r,
+        }
+    }
+}
+
+impl<P> Replication<P>
+where
+    P: Process,
+{
+    fn new(process: P) -> Self {
+        Self { process }
+    }
+}
+
+impl<M, P> Ambient<M, P>
+where
+    M: Capability,
+    P: Process,
+{
+    fn new(capability: M, process: P) -> Self {
+        Self {
+            capability,
+            process,
+        }
+    }
+}
+
+impl<M, P> Action<M, P>
+where
+    M: Capability,
+    P: Process,
+{
+    fn new(capability: M, process: P) -> Self {
+        Self {
+            capability,
+            process,
+        }
+    }
+}
+
+impl<X, P> Input<X, P>
+where
+    X: Into<String>,
+    P: Process,
+{
+    fn new(variable: X, process: P) -> Self {
+        Self { variable, process }
+    }
+}
+
+impl<M> Output<M>
+where
+    M: Capability,
+{
+    fn new(message: M) -> Self {
+        Self { message }
+    }
+}
