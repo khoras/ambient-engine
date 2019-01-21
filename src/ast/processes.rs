@@ -1,25 +1,24 @@
-// Reference http://lucacardelli.name/Papers/MobileAmbients.A4.pdf page 20
+//! This is the documentation to processes module
 
 use crate::ast::capabilities::*;
 
-//
-// Processes
-//
-
-/*
-P,Q ::=
-    (νn)P           -- restriction
-    0               -- inactivity
-    P|Q             -- composition
-    !P              -- replication
-    M[P]            -- ambient
-    M.P             -- capability action
-    (x).P           -- input action
-    <M>             -- async output action
-*/
-
+/// The `Process` type. See [Cardellis' Paper](http://lucacardelli.name/Papers/MobileAmbients.A4.pdf) page 20.
+///
+/// ```text
+/// P,Q ::=
+///    (νn)P           -- restriction
+///    0               -- inactivity
+///    P|Q             -- composition
+///    !P              -- replication
+///    M[P]            -- ambient
+///    M.P             -- capability action
+///    (x).P           -- input action
+///    <M>             -- async output action
+///```
+///
 pub trait Process {}
 
+/// `Restriction` defines a process with a private name
 #[derive(Debug)]
 pub struct Restriction<S, P>
 where
@@ -30,9 +29,11 @@ where
     pub process: P,
 }
 
+/// `Inactivity` defines a process doing nothing
 #[derive(Debug)]
 pub struct Inactivity;
 
+/// `Composition` defines a two processes running in parallel
 #[derive(Debug)]
 pub struct Composition<P, Q>
 where
@@ -43,6 +44,7 @@ where
     pub process_r: Q,
 }
 
+/// `Replication` defines a perpetual process where `!P` is isomorphic to `P | !P`
 #[derive(Debug)]
 pub struct Replication<P>
 where
@@ -51,6 +53,7 @@ where
     pub process: P,
 }
 
+/// `Ambient` defines a named bounded space containing processes
 #[derive(Debug)]
 pub struct Ambient<M, P>
 where
@@ -61,6 +64,7 @@ where
     pub process: P,
 }
 
+/// `Action` attach a capability to a given process defining an action to be done
 #[derive(Debug)]
 pub struct Action<M, P>
 where
@@ -71,6 +75,7 @@ where
     pub process: P,
 }
 
+/// `Input` defines the function able to capture a message.
 #[derive(Debug)]
 pub struct Input<X, P>
 where
@@ -81,6 +86,7 @@ where
     pub process: P,
 }
 
+/// `Output` defines the message able to be captured by an `Input`
 #[derive(Debug)]
 pub struct Output<M>
 where

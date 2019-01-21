@@ -1,22 +1,21 @@
-// Reference http://lucacardelli.name/Papers/MobileAmbients.A4.pdf page 20
+//! This is the documentation to capabilities module
 
-//
-// Capabilities
-//
-
-/*
-M ::=               -- Capability
-    x               -- variable
-    n               -- name
-    in M            -- enter
-    out M           -- exit
-    open M          -- open
-    ε               -- empty
-    M.M′            -- path
-*/
-
+/// The `Capability` type. See [Cardellis' Paper](http://lucacardelli.name/Papers/MobileAmbients.A4.pdf) page 20.
+///
+/// ```text
+/// M ::=              -- Capability
+///   x                -- variable
+///    n               -- name
+///    in M            -- enter
+///    out M           -- exit
+///    open M          -- open
+///    ε               -- empty
+///    M.M′            -- path
+/// ```
+///
 pub trait Capability {}
 
+/// `Variable` capability for dynamic purposes
 #[derive(Debug)]
 pub struct Variable<S>
 where
@@ -25,6 +24,7 @@ where
     pub value: S,
 }
 
+/// `Name` for action target or ambient namespace definition
 #[derive(Debug)]
 pub struct Name<S>
 where
@@ -33,11 +33,13 @@ where
     pub value: S,
 }
 
+/// `In` enter a sibling named ambient
 #[derive(Debug)]
 pub struct In<M: Capability> {
     pub capability: M,
 }
 
+/// `Out` exit a parent named ambient
 #[derive(Debug)]
 pub struct Out<M>
 where
@@ -46,6 +48,7 @@ where
     pub capability: M,
 }
 
+/// `Open` dissolve a sibling named abient
 #[derive(Debug)]
 pub struct Open<M>
 where
@@ -54,6 +57,7 @@ where
     pub capability: M,
 }
 
+/// `Path` composition of two sequential capabilities. The left one should be done before.
 #[derive(Debug)]
 pub struct Path<N, M>
 where
@@ -64,6 +68,7 @@ where
     pub capability_r: M,
 }
 
+/// `Empty` capability meaning nothing to be done
 pub struct Empty;
 
 // Kind of Capability
