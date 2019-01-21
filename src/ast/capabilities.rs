@@ -18,8 +18,8 @@ pub trait Capability {}
 /// `Variable` capability for dynamic purposes
 #[derive(Debug)]
 pub struct Variable<S>
-where
-    S: Into<String>,
+    where
+        S: Into<String>,
 {
     pub value: S,
 }
@@ -27,8 +27,8 @@ where
 /// `Name` for action target or ambient namespace definition
 #[derive(Debug)]
 pub struct Name<S>
-where
-    S: Into<String>,
+    where
+        S: Into<String>,
 {
     pub value: S,
 }
@@ -42,8 +42,8 @@ pub struct In<M: Capability> {
 /// `Out` exit a parent named ambient
 #[derive(Debug)]
 pub struct Out<M>
-where
-    M: Capability,
+    where
+        M: Capability,
 {
     pub capability: M,
 }
@@ -51,8 +51,8 @@ where
 /// `Open` dissolve a sibling named abient
 #[derive(Debug)]
 pub struct Open<M>
-where
-    M: Capability,
+    where
+        M: Capability,
 {
     pub capability: M,
 }
@@ -60,9 +60,9 @@ where
 /// `Path` composition of two sequential capabilities. The left one should be done before.
 #[derive(Debug)]
 pub struct Path<N, M>
-where
-    N: Capability,
-    M: Capability,
+    where
+        N: Capability,
+        M: Capability,
 {
     pub capability_l: N,
     pub capability_r: M,
@@ -84,67 +84,66 @@ impl<M> Capability for Out<M> where M: Capability {}
 impl<M> Capability for Open<M> where M: Capability {}
 
 impl<N, M> Capability for Path<N, M>
-where
-    N: Capability,
-    M: Capability,
-{
-}
+    where
+        N: Capability,
+        M: Capability,
+{}
 
 impl Capability for Empty {}
 
 // Factories
 
 impl<S> Variable<S>
-where
-    S: Into<String>,
+    where
+        S: Into<String>,
 {
-    fn new(value: S) -> Self {
+    pub fn new(value: S) -> Self {
         Self { value }
     }
 }
 
 impl<S> Name<S>
-where
-    S: Into<String>,
+    where
+        S: Into<String>,
 {
-    fn new(value: S) -> Self {
+    pub fn new(value: S) -> Self {
         Self { value }
     }
 }
 
 impl<M> In<M>
-where
-    M: Capability,
+    where
+        M: Capability,
 {
-    fn new(capability: M) -> Self {
+    pub fn new(capability: M) -> Self {
         Self { capability }
     }
 }
 
 impl<M> Out<M>
-where
-    M: Capability,
+    where
+        M: Capability,
 {
-    fn new(capability: M) -> Self {
+    pub fn new(capability: M) -> Self {
         Self { capability }
     }
 }
 
 impl<M> Open<M>
-where
-    M: Capability,
+    where
+        M: Capability,
 {
-    fn new(capability: M) -> Self {
+    pub fn new(capability: M) -> Self {
         Self { capability }
     }
 }
 
 impl<N, M> Path<N, M>
-where
-    N: Capability,
-    M: Capability,
+    where
+        N: Capability,
+        M: Capability,
 {
-    fn new(capability_l: N, capability_r: M) -> Self {
+    pub fn new(capability_l: N, capability_r: M) -> Self {
         Self {
             capability_l,
             capability_r,
@@ -153,7 +152,7 @@ where
 }
 
 impl Empty {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Self
     }
 }
